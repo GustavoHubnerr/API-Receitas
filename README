@@ -11,7 +11,7 @@
 ## 🔧 Como executar
 ```bash
 # Clone o repositório
-git clone https://github.com/usuario/nome-do-repositorio
+git clone https://github.com/GustavoHubnerr/API-Receitas
 
 # Instale as dependências
 npm install
@@ -23,7 +23,7 @@ npm install
 # DB_PORT=5432
 # DB_USER=postgres
 # DB_PASSWORD=postgres
-# DB_NAME=nome_banco
+# DB_NAME=DB_RECEITAS
 
 # Rode o script SQL
 
@@ -31,43 +31,547 @@ npm install
 npm run dev
 ```
 
+
 # 📚 Documentação da API
 
 ## 🎯 Exemplo de Endpoints
 
-### `GET /usuarios`
-Retorna a lista de usuários cadastrados.
+### `GET /categorias`  
+Retorna todas as categorias cadastradas.
 
 **Response:**
 ```json
 [
   {
-    "id": 1,
-    "nome": "João da Silva",
-    "email": "joao@email.com"
+    "id_categoria": 1,
+    "nome_categoria": "Massas"
   }
 ]
 ```
 
-### `POST /usuarios`
-Cria um novo usuário.
+---
+
+### `GET /categorias/:id`  
+Retorna uma categoria específica pelo ID.
+
+**Response:**
+```json
+{
+  "id_categoria": 1,
+  "nome_categoria": "Massas"
+}
+```
+
+---
+
+### `POST /categorias`  
+Cria uma nova categoria.
 
 **Request:**
 ```json
 {
-  "nome": "Maria Oliveira",
-  "email": "maria@email.com",
-  "senha": "123456"
+  "nome_categoria": "Massas"
 }
 ```
 
 **Response:**
 ```json
 {
-  "id": 2,
-  "nome": "Maria Oliveira",
-  "email": "maria@email.com"
+  "mensagem": "Categoria criada com sucesso"
 }
 ```
 
-(Repita esse padrão para cada endpoint criado)
+---
+
+### `PUT /categorias/:id`  
+Atualiza os dados de uma categoria.
+
+**Request:**
+```json
+{
+  "nome_categoria": "Massas Italianas"
+}
+```
+
+**Response:**
+```json
+{
+  "mensagem": "Categoria atualizada com sucesso"
+}
+```
+---
+
+### `DELETE /categorias/:id`  
+Remove uma categoria.
+
+**Response:**
+```json
+{
+  Status: 204 No Content
+}
+```
+
+
+### `GET /ingredientes`  
+Lista todos os ingredientes cadastrados.
+
+**Response:**
+```json
+[
+   {
+    "NOME_INGREDIENTE": "Farinha DE Trigo",
+    "DATA_CADASTRO": "2025-05-05T03:00:00.000Z",
+    "UNIDADE_MEDIDA": "kg",
+    "ID_INGREDIENTE": 3
+  },
+  {
+    "NOME_INGREDIENTE": "Açúcar Refinado",
+    "DATA_CADASTRO": "2025-05-05T03:00:00.000Z",
+    "UNIDADE_MEDIDA": "kg",
+    "ID_INGREDIENTE": 4
+  }
+]
+```
+### `GET /ingredientes/:id`  
+Lista o ingredientes escolhido.
+
+**Response:**
+```json
+[
+  {
+    "NOME_INGREDIENTE": "Açúcar Refinado",
+    "DATA_CADASTRO": "2025-05-05T03:00:00.000Z",
+    "UNIDADE_MEDIDA": "kg",
+    "ID_INGREDIENTE": 4
+  }
+]
+```
+### `PUT /ingredientes/:id`  
+Atualiza os dados de um ingrediente.
+
+**Request:**
+```json
+{
+    "NOME_INGREDIENTE": "Ovos",
+    "DATA_CADASTRO": "2025-05-05T03:00:00.000Z",
+    "UNIDADE_MEDIDA": "unidade"
+}
+```
+
+**Response:**
+```json
+{
+    "NOME_INGREDIENTE": "Ovos",
+    "DATA_CADASTRO": "2025-05-05T03:00:00.000Z",
+    "UNIDADE_MEDIDA": "unidade",
+    "ID_INGREDIENTE": 5
+}
+```
+
+### `POST /ingredientes/:`  
+Adiciona um novo ingrediente.
+
+**Response:**
+```json
+{
+    "NOME_INGREDIENTE": "Sal",
+    "DATA_CADASTRO": "2025-05-05T03:00:00.000Z",
+    "UNIDADE_MEDIDA": "grama",
+    "ID_INGREDIENTE": 20
+}
+```
+### `DELETE /ingredientes/:id`  
+deleta um ingrediente.
+
+**Response:**
+```json
+{
+    Status: 204 No Content
+}
+```
+
+### `GET /fornecedores`  
+Retorna todos os fornecedores.
+
+**Response:**
+```json
+[
+  {
+    "NOME_FORNECEDOR": "Distribuidora Alimentos Ltda                                                                        ",
+    "CNPJ": "98765432000102      ",
+    "EMAIL_FORNECEDOR": "vendas@dalimentos.com                             ",
+    "CONTATO_FORNECEDOR": "(11) 93456-7890                                   ",
+    "ENDERECO": "Av. Brasil, 456                                                                                     ",
+    "ID_FORNECEDOR": 4
+  },
+  {
+    "NOME_FORNECEDOR": "Supermercado Bom Preço                                                                              ",
+    "CNPJ": "11122233000199      ",
+    "EMAIL_FORNECEDOR": "suporte@bompreco.com                              ",
+    "CONTATO_FORNECEDOR": "(21) 98877-6655                                   ",
+    "ENDERECO": "Rua Afonso Pena, 789                                                                                ",
+    "ID_FORNECEDOR": 5
+  }
+]
+
+```
+### `GET /fornecedores/:id`  
+Retorna o fornecedor escolhido.
+
+**Response:**
+```json
+[
+  {
+    "NOME_FORNECEDOR": "Distribuidora Alimentos Ltda                                                                        ",
+    "CNPJ": "98765432000102      ",
+    "EMAIL_FORNECEDOR": "vendas@dalimentos.com                             ",
+    "CONTATO_FORNECEDOR": "(11) 93456-7890                                   ",
+    "ENDERECO": "Av. Brasil, 456                                                                                     ",
+    "ID_FORNECEDOR": 4
+  }
+]
+```
+---
+
+### `POST /fornecedores`  
+Cadastra um novo fornecedor.
+
+**Request:**
+```json
+{
+  "nome_fornecedor": "Fornecedor B",
+  "cnpj": "11.111.111/0001-11",
+  "email_fornecedor": "fornecedorb@email.com",
+  "contato_fornecedor": "11 91111-1111",
+  "endereco": "Rua B, 456"
+}
+```
+**Response:**
+```json
+{
+  "nome_fornecedor": "Fornecedor B",
+  "cnpj": "11.111.111/0001-11",
+  "email_fornecedor": "fornecedorb@email.com",
+  "contato_fornecedor": "11 91111-1111",
+  "endereco": "Rua B, 456",
+  "id_fornecedor": 15
+}
+```
+### `PUT /fornecedores`  
+altera um  fornecedor.
+
+**Request:**
+```json
+{
+  "nome_fornecedor": "nome alterado B",
+  "cnpj": "11.111.111/0001-11",
+  "email_fornecedor": "fornecedorb@email.com",
+  "contato_fornecedor": "11 91111-1111",
+  "endereco": "Rua B, 456"
+}
+```
+**Response:**
+```json
+{
+  "nome_fornecedor": "nome alterado B",
+  "cnpj": "11.111.111/0001-11",
+  "email_fornecedor": "fornecedorb@email.com",
+  "contato_fornecedor": "11 91111-1111",
+  "endereco": "Rua B, 456",
+  "id_fornecedor": 15
+}
+```
+
+### `DELETE /fornecedores/:id`  
+Deleta o ingrediente
+
+**Response:**
+```json
+{
+    Status: 204 No Content
+}
+```
+
+---
+
+### `GET /ligacaoFornecedor`  
+Busca todas as ligaçoes do banco
+
+**Response:**
+```json
+{
+  "id_ingrediente": 1,
+  "id_fornecedor": 2,
+  "id_ligacao": 5
+},
+{
+  "id_ingrediente": 4,
+  "id_fornecedor": 5,
+  "id_ligacao": 6
+}
+```
+
+### `GET /ligacaoFornecedor/:id`  
+Busca a ligação selecionada.
+
+**Response:**
+```json
+{
+  "id_ingrediente": 1,
+  "id_fornecedor": 2,
+  "id_ligacao": 5
+}
+```
+---
+### `PUT /ligacaoFornecedor/:id`  
+altera a ligação selecionada
+
+**Request:**
+```json
+{
+  "id_ingrediente": 4,
+  "id_fornecedor": 2
+}
+```
+**Response:**
+```json
+{
+  "id_ingrediente": 4,
+  "id_fornecedor": 2,
+  "id_ligacao": 5
+}
+```
+### `POST /ligacaoFornecedor`  
+Vincula um ingrediente a um fornecedor.
+
+**Request:**
+```json
+{
+  "id_ingrediente": 4,
+  "id_fornecedor": 2
+}
+```
+**Response:**
+```json
+{
+  "id_ingrediente": 4,
+  "id_fornecedor": 2,
+  "id_ligacao": 5
+}
+```
+### `delete /ligacaoFornecedor/:id`  
+deleta a ligação selecionada.
+
+**Response:**
+```json
+{
+  Status: 204 No Content
+}
+```
+----
+
+### `GET /receitas`  
+Retorna todas as receitas.
+
+**Response:**
+```json
+[
+  {
+    "id_receita": 1,
+    "nome_receita": "Pizza Margherita",
+    "modo_preparo": "Abra a massa, adicione o molho e asse.",
+    "tempo_preparo": "00:30:00"
+  }
+]
+```
+---
+
+### `GET /receitas/:id`  
+Retorna uma receita específica.
+
+**Response:**
+```json
+{
+  "id_receita": 1,
+  "nome_receita": "Pizza Margherita",
+  "modo_preparo": "Abra a massa, adicione o molho e asse.",
+  "tempo_preparo": "00:30:00"
+}
+```
+
+---
+
+### `POST /receitas`  
+Adiciona uma nova receita.
+
+**Request:**
+```json
+{
+  "nome_receita": "Pizza Margherita",
+  "modo_preparo": "Abra a massa, adicione o molho e asse.",
+  "tempo_preparo": "00:30:00"
+}
+```
+
+**Response:**
+```json
+{
+  "mensagem": "Receita criada com sucesso"
+}
+```
+
+---
+
+### `PUT /receitas/:id`  
+Atualiza uma receita existente.
+
+**Request:**
+```json
+{
+  "nome_receita": "Pizza Quatro Queijos",
+  "modo_preparo": "Abra a massa, adicione os queijos e asse.",
+  "tempo_preparo": "00:25:00"
+}
+```
+
+**Response:**
+```json
+{
+  "mensagem": "Receita atualizada com sucesso"
+}
+```
+
+---
+
+### `DELETE /receitas/:id`  
+Remove uma receita.
+
+**Response:**
+```json
+{
+  Status: 204 No Content
+}
+```
+
+---
+### `GET /ligacaoReceitas`  
+Busca as ligacaoReceitas existente.
+
+
+**Response:**
+```json
+[
+{
+  "id_receita": 1,
+  "id_ingrediente": 2,
+  "quantidade": 200,
+  "id_ligacao": 10
+},
+{
+  "id_receita": 4,
+  "id_ingrediente": 5,
+  "quantidade": 150,
+  "id_ligacao": 12
+}
+]
+```
+### `GET /ligacaoReceitas/:id`  
+Busca as ligacaoReceitas existente.
+
+**Response:**
+```json
+
+{
+  "id_receita": 4,
+  "id_ingrediente": 5,
+  "quantidade": 150,
+  "id_ligacao": 12
+}
+```
+
+### `POST /ligacaoReceitas`  
+Adiciona ingredientes a uma receita com quantidade.
+
+**Request:**
+```json
+{
+  "id_receita": 1,
+  "id_ingrediente": 2,
+  "quantidade": 200
+}
+```
+**Response:**
+```json
+{
+  "id_receita": 1,
+  "id_ingrediente": 2,
+  "quantidade": 200,
+  "id_ligacao": 10
+}
+```
+
+### `PUT /ligacaoReceitas/:id`  
+Atualiza uma ligacaoReceitas existente.
+
+**Request:**
+```json
+{
+  "id_receita": 1,
+  "id_ingrediente": 2,
+  "quantidade": 200
+}
+```
+
+**Response:**
+```json
+{
+  "id_receita": 1,
+  "id_ingrediente": 2,
+  "quantidade": 200,
+  "id_ligacao": 10
+}
+```
+---
+
+### `DELETE /ligacaoReceitas/:id`  
+Remove uma ligacaoReceitas.
+
+**Response:**
+```json
+{
+  Status: 204 No Content
+}
+```
+
+---
+
+### `GET /custoReceita/:id`  
+Retorna o custo total de uma receita.
+
+**Response:**
+```json
+{
+  "id_receita": 1,
+  "nome_receita": "Bolo de Chocolate",
+  "custo_total": 12.75
+}
+```
+
+---
+
+### `GET /ingredientesMaisUsados`  
+Lista os ingredientes mais utilizados nas receitas.
+
+**Response:**
+```json
+[
+  {
+    "nome_ingrediente": "Farinha de Trigo",
+    "quantidade_total_usada": 800
+  },
+  {
+    "nome_ingrediente": "Açúcar",
+    "quantidade_total_usada": 500
+  }
+]
+```

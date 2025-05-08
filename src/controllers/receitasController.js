@@ -13,15 +13,15 @@ async function buscarPorId(req, res) {
 }
 
 async function criar(req, res) {
-    const { nome_receita, modo_preparo, tempo_preparo, porcoes, id_categoria } = req.body;
-    const novo = await receitasService.CadastrarReceita(nome_receita, modo_preparo, tempo_preparo, porcoes, id_categoria);    
+    const { NOME_RECEITA, MODO_PREPARO, TEMPO_PREPARO, PORCOES, ID_CATEGORIA } = req.body;
+    const novo = await receitasService.CadastrarReceita(NOME_RECEITA, MODO_PREPARO, TEMPO_PREPARO, PORCOES, ID_CATEGORIA);    
   res.status(201).json(novo);
 }
 
 async function atualizar(req, res) {
   const id = parseInt(req.params.id);
-  const { nome_receita, modo_preparo,tempo_preparo, porcoes,id_categoria } = req.body;
-  const atualizado = await receitasService.atualizarReceita(id,nome_receita, modo_preparo,tempo_preparo, porcoes,id_categoria);
+  const { NOME_RECEITA, MODO_PREPARO, TEMPO_PREPARO, PORCOES, ID_CATEGORIA } = req.body;
+  const atualizado = await receitasService.atualizarReceita(id,NOME_RECEITA, MODO_PREPARO, TEMPO_PREPARO, PORCOES, ID_CATEGORIA);
   res.json(atualizado);
 }
 

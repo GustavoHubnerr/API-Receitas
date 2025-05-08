@@ -13,15 +13,15 @@ async function buscarPorId(req, res) {
 }
 
 async function criar(req, res) {
-  const { nome_fornecedor, cnpj, email,contato,endereco } = req.body;
-  const novo = await fornecedoresService.CadastrarFornecedor( nome_fornecedor, cnpj, email,contato,endereco);
+  const { NOME_FORNECEDOR, CNPJ, EMAIL,CONTATO,ENDERECO } = req.body;
+  const novo = await fornecedoresService.CadastrarFornecedor( NOME_FORNECEDOR, CNPJ, EMAIL,CONTATO,ENDERECO);
   res.status(201).json(novo);
 }
 
 async function atualizar(req, res) {
   const id = parseInt(req.params.id);
-  const { nome_fornecedor, cnpj, email,contato,endereco } = req.body;
-  const atualizado = await fornecedoresService.atualizarFornecedor(id, nome_fornecedor, cnpj, email,contato,endereco);
+  const { NOME_FORNECEDOR, CNPJ, EMAIL,CONTATO,ENDERECO } = req.body;
+  const atualizado = await fornecedoresService.atualizarFornecedor(id, NOME_FORNECEDOR, CNPJ, EMAIL,CONTATO,ENDERECO);
   res.json(atualizado);
 }
 

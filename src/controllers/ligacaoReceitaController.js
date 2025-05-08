@@ -13,15 +13,15 @@ async function buscarPorId(req, res) {
 }
 
 async function criar(req, res) {
-  const {id_receita, id_ingrediente,quantidade } = req.body;
-  const novo = await ligacaoReceitasService.criarLigacaoReceita(id_receita, id_ingrediente,quantidade);
+  const {ID_RECEITA, ID_INGREDIENTE,QUANTIDADE } = req.body;
+  const novo = await ligacaoReceitasService.criarLigacaoReceita(ID_RECEITA, ID_INGREDIENTE,QUANTIDADE);
   res.status(201).json(novo);
 }
 
 async function atualizar(req, res) {
   const id = parseInt(req.params.id);
-  const { id_receita, id_ingrediente,quantidade } = req.body;
-  const atualizado = await ligacaoReceitasService.atualizarLigacaoReceita(id, id_receita, id_ingrediente,quantidade);
+  const { ID_RECEITA, ID_INGREDIENTE,QUANTIDADE } = req.body;
+  const atualizado = await ligacaoReceitasService.atualizarLigacaoReceita(ID_RECEITA, ID_INGREDIENTE,QUANTIDADE);
   res.json(atualizado);
 }
 
