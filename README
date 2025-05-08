@@ -1,7 +1,7 @@
-# Nome do Projeto - [Tema do Grupo]
+# Nome do Projeto - [API para gestão de receitas]
 
 ## 📝 Descrição
-[Descrição curta do que a API faz e qual o objetivo do projeto.]
+Essa API visa fazer a gestão completa de dados das receitas gastronomicas, podendo inserir, alterar, deletar e consultar receitas. 
 
 ## 🚀 Tecnologias utilizadas
 - Node.js

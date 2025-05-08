@@ -1,0 +1,87 @@
+CREATE TABLE IF NOT EXISTS public."L_INGREDIENTE_FORNECEDOR"
+(
+    "ID_INGREDIENTE" integer NOT NULL,
+    "ID_FORNECEDOR" integer NOT NULL,
+    "VALOR_UNITARIO" double precision NOT NULL,
+    "ID_LIGACAO" integer NOT NULL DEFAULT nextval('"L_INGREDIENTE_FORNECEDOR_ID_LIGACAO_seq"'::regclass),
+    CONSTRAINT "L_INGREDIENTE_FORNECEDOR_pkey" PRIMARY KEY ("ID_LIGACAO"),
+    CONSTRAINT "L_INGREDIENTE_FORNECEDOR_ID_FORNECEDOR_fkey" FOREIGN KEY ("ID_FORNECEDOR")
+        REFERENCES public."T_FORNECEDORES" ("ID_FORNECEDOR") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT "L_INGREDIENTE_FORNECEDOR_ID_INGREDIENTE_fkey" FOREIGN KEY ("ID_INGREDIENTE")
+        REFERENCES public."T_INGREDIENTES" ("ID_INGREDIENTE") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+--------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public."L_RECEITAS_INGREDIENTES"
+(
+    "ID_RECEITA" integer NOT NULL,
+    "ID_INGREDIENTE" integer NOT NULL,
+    "QUANTIDADE_INGREDIENTE" double precision,
+    "ID_LIGACAO" integer NOT NULL DEFAULT nextval('"L_RECEITAS_INGREDIENTES_ID_LIGACAO_seq"'::regclass),
+    CONSTRAINT "L_RECEITAS_INGREDIENTES_pkey" PRIMARY KEY ("ID_LIGACAO"),
+    CONSTRAINT "L_RECEITAS_INGREDIENTES_ID_INGREDIENTE_fkey" FOREIGN KEY ("ID_INGREDIENTE")
+        REFERENCES public."T_INGREDIENTES" ("ID_INGREDIENTE") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT "L_RECEITAS_INGREDIENTES_ID_RECEITA_fkey" FOREIGN KEY ("ID_RECEITA")
+        REFERENCES public."T_RECEITAS" ("ID_RECEITA") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+
+--------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public."T_CATEGORIA"
+(
+    "NOME_CATEGORIA" character(100) COLLATE pg_catalog."default",
+    "ID_CATEGORIA" integer NOT NULL DEFAULT nextval('"T_CATEGORIA_ID_CATEGORIA_seq"'::regclass),
+    CONSTRAINT "T_CATEGORIA_pkey" PRIMARY KEY ("ID_CATEGORIA")
+)
+
+--------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public."T_FORNECEDORES"
+(
+    "NOME_FORNECEDOR" character(100) COLLATE pg_catalog."default",
+    "CNPJ" character(20) COLLATE pg_catalog."default",
+    "EMAIL_FORNECEDOR" character(50) COLLATE pg_catalog."default",
+    "CONTATO_FORNECEDOR" character(50) COLLATE pg_catalog."default",
+    "ENDERECO" character(100) COLLATE pg_catalog."default",
+    "ID_FORNECEDOR" integer NOT NULL DEFAULT nextval('"T_FORNECEDOR_ID_FORNECEDOR_seq"'::regclass),
+    CONSTRAINT "T_FORNECEDOR_pkey" PRIMARY KEY ("ID_FORNECEDOR")
+)
+
+--------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public."T_INGREDIENTES"
+(
+    "NOME_INGREDIENTE" character(100) COLLATE pg_catalog."default",
+    "DATA_CADASTRO" date,
+    "UNIDADE_MEDIDA" character(100) COLLATE pg_catalog."default",
+    "ID_INGREDIENTE" integer NOT NULL DEFAULT nextval('"T_INGREDIENTES_ID_INGREDIENTE_seq"'::regclass),
+    CONSTRAINT "T_INGREDIENTES_pkey" PRIMARY KEY ("ID_INGREDIENTE")
+)
+
+
+--------------------------------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public."T_RECEITAS"
+(
+    "NOME_RECEITA" character(100) COLLATE pg_catalog."default",
+    "MODO_PREPARO" character(1000) COLLATE pg_catalog."default",
+    "TEMPO_PREPARO" time with time zone,
+    "PORCOES" integer,
+    "ID_CATEGORIA" integer,
+    "ID_RECEITA" integer NOT NULL DEFAULT nextval('"T_RECEITAS_ID_RECEITA_seq"'::regclass),
+    CONSTRAINT "T_RECEITAS_pkey" PRIMARY KEY ("ID_RECEITA"),
+    CONSTRAINT "T_RECEITAS_ID_CATEGORIA_fkey" FOREIGN KEY ("ID_CATEGORIA")
+        REFERENCES public."T_CATEGORIA" ("ID_CATEGORIA") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
